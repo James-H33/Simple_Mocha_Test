@@ -1,0 +1,8 @@
+// Simple Mocha is a REST API which is accompanied with it's on Unit Testing
+
+Requires:
+    -- Node 6.0
+    -- MongoDB
+
+Testing Tools
+    -- Mocha + Chai

@@ -1,6 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const logger = require('morgan');
+const express       = require('express');
+const mongoose      = require('mongoose');
+const logger        = require('morgan');
+const bodyParser    = require('body-parser');
 
 // Routes
 const movieRoutes = require('./routes/movieRoutes');
@@ -9,8 +10,8 @@ const movieRoutes = require('./routes/movieRoutes');
 const app = express();
 
 // Ports
-const port = process.env.PORT || 3030;
-const portIP = process.env.IP;
+const port    = process.env.PORT || 3030;
+const portIP  = process.env.IP;
 
 // connect to mongodb
 mongoose.connect('mongodb://localhost/simple_mocha');
@@ -19,7 +20,11 @@ mongoose.connect('mongodb://localhost/simple_mocha');
 app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
+
+// Home Route
 app.get('/', function(req, res, next) {
     res.render('index');
 });
@@ -31,4 +36,5 @@ app.listen(port, portIP, function() {
     console.log('Server has started...');
 });
 
+// MUST EXPORT APP FOR TESTING
 module.exports = app;
